@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+img {
+    width: 200px;
+    display: block;
+    margin: 30px auto;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    transition: all .2s;
+}
+
+input,
+button {
+    border-style: solid;
+    border-color: #E46000;
+    border-radius: 30px;
+    padding: 0.5em;
+    width: 200px;
+    display: block;
+    margin: 20px auto;
+    color: #E46000;
+    background-color: transparent;
+}
+
+#submit {
+    margin-top: 35px;
+    width: 200px;
+    transition: all .2s;
+}
+
+#submit:hover {
+    border-color: #b94d00;
+    color: #b94d00;
+    transition: all .2s;
+}
+
+#submit:active {
+    border-color: #b94d00;
+    color: #b94d00;
+    transition: all .2s;
+}
+
+form {
+    margin-top: 35px;
+}
+
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+input,
+button,
+textarea,
+ :focus {
+    outline: none;
+}

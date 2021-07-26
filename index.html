@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRE Client</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="navbar">
+        <img src="favicon.png" alt="VRE" class="icon horizontal-seperator-right">
+        <button data-viewport="home" class="active navbtn">Home</button>
+        <button data-viewport="vehicles" class="navbtn">Fuhrpark</button>
+        <button data-viewport="routes" class="navbtn">Meine Fahrten</button>
+        <button data-viewport="lsf" class="navbtn">Leitstellenfahrt</button>
+        <button data-viewport="rules" class="navbtn">Regelwerk & Weisungen</button>
+        <button data-viewport="planner" class="navbtn">Fahrplanung</button>
+        <button data-viewport="manage" class="navbtn">Verwaltung</button>
+        <button data-viewport="settings" class="navbtn right-align">Einstellungen</button>
+        <div id="udiv" class="horizontal-seperator-left">
+            <p id="user-text-2" class="bold utext">Angemeldet als %user</p>
+            <p id="user-text" class="utext">%role</p>
+        </div>
+    </div>
+
+    <div id="home" class="viewport">
+        <h1>Willkommen!</h1>
+    </div>
+
+    <div id="vehicles" class="viewport" hidden>
+        <h1>Fuhrpark</h1>
+        <label class="clabel">Nur Fz. mit Fahrerlaubnis</label><input type="checkbox" id="allowed_cb"> | <input id="id_input" placeholder="Nach Fznr suchen"><input type="checkbox" id="id_cb"> | <button id="btn_confirm">Filter übernehmen</button>
+        <div id="vehicles2"></div>
+    </div>
+
+    <div id="routes" class="viewport" hidden>
+        <h1>Meine Fahrten</h1>
+    </div>
+
+    <div id="lsf" class="viewport" hidden>
+        <h1>Leitstellenfahrt</h1>
+    </div>
+
+    <div id="rules" class="viewport" hidden>
+        <h1>Regelwerk & Weisungen</h1>
+    </div>
+
+    <div id="planner" class="viewport" hidden>
+        <h1>Fahrplannung</h1>
+    </div>
+
+    <div id="manage" class="viewport" hidden>
+        <h1>Verwaltung</h1>
+    </div>
+
+    <div id="settings" class="viewport" hidden>
+        <h1>Einstellungen</h1>
+    </div>
+
+    <script src="_index.js"></script>
+    <script src="vehicles.js"></script>
+</body>
+
+</html>

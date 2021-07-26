@@ -1,0 +1,14 @@
+{
+    "name": "vre_client",
+    "version": "1.0.0",
+    "description": "Der VRE Client",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "author": "GamingCraft_hd & JustMattis",
+    "license": "MIT",
+    "dependencies": {
+        "electron": "^13.1.7"
+    }
+}
