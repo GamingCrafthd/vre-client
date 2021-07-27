@@ -51,8 +51,8 @@ body {
     border: none;
     font-size: 16px;
     text-align: center;
-    color: #000;
-    transform: translateY(-20px);
+    color: rgb(25, 25, 25);
+    /*transform: translateY(-20px);*/
 }
 
 .navbtn:hover:not(.active) {
@@ -68,7 +68,7 @@ body {
 }
 
 .active {
-    border-bottom-color: #000;
+    color: rgb(25, 25, 25);
     border-bottom-style: solid;
     border-bottom-width: 1px;
 }
@@ -94,7 +94,7 @@ body {
 .viewport {
     width: 1280px;
     height: 670px;
-    margin-top: -20px;
+    /*margin-top: -20px;*/
 }
 
 .vehicle {
@@ -140,4 +140,51 @@ h1 {
 
 .clabel {
     margin-left: 16px;
+}
+
+#_rules {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 700px;
+}
+
+.rule {
+    background-color: #F8F8F8;
+    border-color: #F4F4F4;
+    border-radius: 10px;
+    border-style: solid;
+    font-size: 22px;
+    width: max-content;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin: 10px;
+    display: inline-block;
+}
+
+.pdf {
+    padding-left: 0.5em;
+    padding-right: 1em;
+    height: 1.25em;
+}
+
+.download {
+    padding-right: 0.5em;
+    padding-left: 1em;
+    height: 1.25em;
+}
+
+.rule_p {
+    margin: 0;
+}
+
+.manage_icons {
+    font-size: 100px;
+    margin: 50px;
+}
+
+.manage_wrapper {
+    width: max-content;
+    position: relative;
+    left: calc(50% - 811px / 2);
+    top: calc(50% - 100px);
 }

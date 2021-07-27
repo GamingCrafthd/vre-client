@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, shell } = require('electron')
 
 ipcRenderer.send('resize', { width: 1280, height: 720 })
 
@@ -26,18 +26,22 @@ switch (req.res) {
         break
 
     case "2":
-        role = "Fahrlehrer"
+        role = "Fuhrparkbeauftragter"
         break
 
     case "3":
-        role = "Disponent"
+        role = "Fahrlehrer"
         break
 
     case "4":
-        role = "Administrator"
+        role = "Disponent"
         break
 
     case "5":
+        role = "Administrator"
+        break
+
+    case "6":
         role = "Entwickler"
         break
 }
@@ -47,21 +51,22 @@ document.getElementById("user-text").innerText = document.getElementById("user-t
 const viewports = [{
         viewport: "home",
         onopen: () => {
-            console.log("kek")
+            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!"];
+            document.getElementById("welcome").innerText = welcomes[Math.floor(Math.random() * welcomes.length)]
         }
     },
     {
         viewport: "vehicles",
         onopen: () => {
-            update()
+            updateVehicles()
 
             document.getElementById("btn_confirm").addEventListener("click", () => {
                 document.getElementById("vehicles2").innerHTML = "";
 
                 if (document.getElementById("id_cb").checked) {
-                    updateWithSearch(document.getElementById("allowed_cb").checked, document.getElementById("id_input").value)
+                    updateVehiclesWithSearch(document.getElementById("allowed_cb").checked, document.getElementById("id_input").value)
                 } else {
-                    updateByOwnedOnly(document.getElementById("allowed_cb").checked)
+                    updateVehiclesByOwnedOnly(document.getElementById("allowed_cb").checked)
                 }
             })
         }
@@ -81,7 +86,7 @@ const viewports = [{
     {
         viewport: "rules",
         onopen: () => {
-            console.log("kek")
+            loadRules()
         }
     },
     {
@@ -108,12 +113,16 @@ Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
         document.getElementById(x.dataset.viewport).hidden = false
 
         viewports.forEach(vp => {
-            if (vp.viewport === x.dataset.viewport) {
-                vp.onopen()
-            }
+            if (vp.viewport === x.dataset.viewport) vp.onopen()
         })
     })
 });
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 
 function httpGet(url) {
     var xmlHttp = new XMLHttpRequest()

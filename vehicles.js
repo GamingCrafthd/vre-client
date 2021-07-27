@@ -21,13 +21,13 @@ const imageFiles = [{
     types: ["GT8"]
 }]
 
-function update() {
+function updateVehicles() {
     vehicleList.forEach(vehicleId => {
         createVehicle(vehicleId)
     })
 }
 
-function updateByOwnedOnly(ownedOnly) {
+function updateVehiclesByOwnedOnly(ownedOnly) {
     vehicleList.forEach(vehicleId => {
         if (ownedOnly) {
             const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
@@ -40,7 +40,7 @@ function updateByOwnedOnly(ownedOnly) {
     })
 }
 
-function updateWithSearch(ownedOnly, searchedVehicleId) {
+function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
     vehicleList.forEach(vehicleId => {
         if (vehicleId == searchedVehicleId) {
             if (ownedOnly) {
