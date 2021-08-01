@@ -98,7 +98,7 @@ const viewports = [{
     {
         viewport: "manage",
         onopen: () => {
-            console.log("kek")
+            loadButtons()
         }
     }
 ]
