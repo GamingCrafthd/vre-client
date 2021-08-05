@@ -19,6 +19,11 @@ app.whenReady().then(() => {
         window.setSize(arg.width, arg.height)
         window.center()
     })
+    ipcMain.on('open_file', (event, arg) => window.loadFile(arg.file))
+    ipcMain.on('fullscreen', event => {
+        window.resizable = true
+        window.setFullScreen(true)
+    })
 })
 
 ipcMain.on('manage:vehicles', event => openWindow("management/vehicles.html", "Fuhrparkverwaltung"))
@@ -43,5 +48,5 @@ function openWindow(file, name) {
         }
     })
     window.menuBarVisible = false;
-    window.loadFile(file)  
+    window.loadFile(file)
 }

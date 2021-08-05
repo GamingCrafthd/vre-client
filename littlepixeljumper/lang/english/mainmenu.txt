@@ -1,0 +1,5 @@
+Play
+Multiplayer
+Store
+Settings
+Quit

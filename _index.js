@@ -130,3 +130,8 @@ function httpGet(url) {
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }
 }
+
+function launchLittlePixelJumper() {
+    ipcRenderer.send('fullscreen')
+    ipcRenderer.send('open_file', { file: "littlepixeljumper/index.html" })
+}
