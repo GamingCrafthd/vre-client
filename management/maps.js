@@ -1,7 +1,8 @@
 const select = document.getElementById("select")
 const maps = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/maps/${localStorage.getItem("sessionId")}`).res)
 const routeTemplate = '<button href="#" class="list-group-item list-group-item-action" id="%id" onclick="%onclick">%display</button>'
-const newRouteTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_new_route_%map">Neue Fahrt erstellen</button>'
+const newRouteTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_new_route_%map" onclick="%onclick">Neue Fahrt erstellen</button>'
+const saveRouteTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_route_save" onclick="%onclick">Speichern</button>'
 
 maps.forEach(map => {
     var opt = document.createElement('option')
@@ -45,29 +46,27 @@ function openEdit(map) {
 
         const display = line + "/" + course + " " + firstStop + " --> " + lastStop + " (" + startTime + ") [" + vehicles + "]" + (weekly === "true" ? " (jede Woche)" : "")
 
-        //document.getElementById("edit_list").innerHTML += routeTemplate.replace("%id", `route_${index}`).replace("%display", display).replace("%onclick", `openRouteEdit("${map}", "${res}")`)
-        document.getElementById("edit_list").innerHTML += routeTemplate.replace("%id", `route_${index}`).replace("%display", display).replace("%onclick", `alert("kek")`)
-        //document.getElementById(`route_${index}`).addEventListener('click', () => openRouteEdit(map, res))
+        document.getElementById("edit_list").innerHTML += routeTemplate.replace("%id", `route_${index}`).replace("%display", display).replace("%onclick", `openRouteEdit('${map}', '${res}')`)
     })
 
-    document.getElementById('edit').innerHTML += newRouteTemplate.replace('%map', map)
-    document.getElementById(`bn_edit_new_route_${map}`).addEventListener("click", () => openRouteEdit(map, ""))
+    document.getElementById('edit_bn').innerHTML = ""
 
-    document.getElementById('edit').innerHTML += '<button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
+    document.getElementById('edit_bn').innerHTML += newRouteTemplate.replace('%map', map).replace("%onclick", `openRouteEdit('${map}', '')`)
+
+    document.getElementById('edit_bn').innerHTML += '<button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
     document.getElementById("bn_edit_back").addEventListener("click", () =>  returnToMainWindow())
 }
 
 function openRouteEdit(map, route) {
-    alert(`openedit ${map}:${route}`)
-
     document.getElementById("edit").hidden = true
     document.getElementById("start").hidden = true
     document.getElementById("edit_route").hidden = false
 
     document.getElementById("edit_route_name").innerText = map
+
+    const routes = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/routes/${localStorage.getItem("sessionId")}`).res)
     if(route !== "") {
-        var routes = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/routes/${localStorage.getItem("sessionId")}`).res)
-        const index = routes.indexOf(res)
+        const index = routes.indexOf(route)
 
         const line = route.split("_")[0]
         const course = route.split("_")[1]
@@ -77,14 +76,31 @@ function openRouteEdit(map, route) {
         const vehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/vehicles/${localStorage.getItem("sessionId")}`).res
         const weekly = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/weekly/${localStorage.getItem("sessionId")}`).res
 
-        document.getElementById("edit_route_line").text = line
-        document.getElementById("edit_route_courese").text = course
-        document.getElementById("edit_route_first_stop").text = firstStop
-        document.getElementById("edit_route_last_stop").text = lastStop
-        document.getElementById("edit_route_start_time").text = startTime
-        document.getElementById("edit_route_vehicles").text = vehicles
+        document.getElementById("edit_route_line").value = line
+        document.getElementById("edit_route_course").value = course
+        document.getElementById("edit_route_first_stop").value = firstStop
+        document.getElementById("edit_route_last_stop").value = lastStop
+        document.getElementById("edit_route_start_time").value = startTime
+        document.getElementById("edit_route_vehicles").value = vehicles
         document.getElementById("edit_route_weekly").checked = (weekly === "true")
     }
+
+    document.getElementById("edit_route_bn").innerHTML = ""
+    document.getElementById("edit_route_bn").innerHTML += saveRouteTemplate.replace("%onclick", `saveRoute('${map}', ${route !== '' ? routes.indexOf(route) : -1})`)
+}
+
+function saveRoute(map, index) {
+    const line = document.getElementById("edit_route_line").value
+    const course = document.getElementById("edit_route_course").value
+    const firstStop = document.getElementById("edit_route_first_stop").value
+    const lastStop = document.getElementById("edit_route_last_stop").value
+    const startTime = document.getElementById("edit_route_start_time").value
+    const vehicles = document.getElementById("edit_route_vehicles").value
+    const weekly = document.getElementById("edit_route_weekly").checked
+
+    httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index > 0 ? (index + "/edit") : "create"}/${line}/${course}/${firstStop}/${lastStop}/${startTime}/${vehicles}/${weekly}/${localStorage.getItem("sessionId")}`)
+
+    openEdit(map)
 }
 
 function returnToMainWindow() {
