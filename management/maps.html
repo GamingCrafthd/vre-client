@@ -24,10 +24,35 @@
     <div id="edit">
         <h2 id="edit_name">%name</h2>
         Fahrten
-        <div class="list-group" id="edit_list"></div>
-        <button type="button" class="btn btn-primary" id="bn_edit_new_route">Neue Fahrt erstellen</button>
+        <div class="list-group list-group-flush" id="edit_list"></div>
         <br>
-        <button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>
+    </div>
+    <div id="edit_route">
+        <h2 id="edit_route_name">%name</h2>
+        Fahrt bearbeiten
+        <br>
+        Linie
+        <input type="text" id="edit_route_line">
+        <br>
+        Kurs
+        <input type="text" id="edit_route_course">
+        <br>
+        Erste Haltestelle
+        <input type="text" id="edit_route_first_stop">
+        <br>
+        Letzte Haltestelle
+        <input type="text" id="edit_route_last_stop">
+        <br>
+        Fahrzeuge
+        <input type="text" id="edit_route_vehicles">
+        <br>
+        Startzeit
+        <input type="text" id="edit_route_start_time">
+        <br>
+        Wöchentlich
+        <input type="checkbox" id="edit_route_weekly">
+        <br>
+        <button type="button" class="btn btn-secondary" id="bn_edit_route_back">Zurück</button>
     </div>
     <script src="maps.js"></script>
 </body>
