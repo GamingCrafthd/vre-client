@@ -14,7 +14,7 @@ function loadRules() {
             if (!found) x = `<span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"><span class="visually-hidden">unread messages</span>`
         })
         document.getElementById("_rules").innerHTML += ruleTemplate.replace("%w_id_a", rule.replace(" ", "_") + "_a").replace("%w_id", rule.replace(" ", "_")).replace("%rule", rule).replace("%notification", x)
-        document.getElementById(rule.replace(" ", "_") + "_a").addEventListener("onclick", () => {
+        document.getElementById(rule.replace(" ", "_") + "_a").addEventListener("click", () => {
             markAsRead(rule)
             shell.openExternal(url)
         })

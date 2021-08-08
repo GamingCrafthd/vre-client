@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +8,15 @@
     <link rel="stylesheet" href="management.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
+
 <body>
     <h1>Mapverwaltung</h1>
     <div id="start">
         Karte bearbeiten
         <select id="select"></select>
         <button type="button" class="btn btn-primary" id="bn_edit">Bearbeiten</button>
-        <br>
-        oder
+        <button type="button" class="btn btn-danger" id="bn_delete">Löschen</button>
+        <br> oder
         <br>
         <input type="text" id="name">
         <button type="button" class="btn btn-primary" id="bn_create">Neue Karte erstellen</button>
@@ -29,26 +31,19 @@
     <div id="edit_route">
         <h2 id="edit_route_name">%name</h2>
         Fahrt bearbeiten
-        <br>
-        Linie
+        <br> Linie
         <input type="text" id="edit_route_line">
-        <br>
-        Kurs
+        <br> Kurs
         <input type="text" id="edit_route_course">
-        <br>
-        Erste Haltestelle
+        <br> Erste Haltestelle
         <input type="text" id="edit_route_first_stop">
-        <br>
-        Letzte Haltestelle
+        <br> Letzte Haltestelle
         <input type="text" id="edit_route_last_stop">
-        <br>
-        Fahrzeuge
+        <br> Fahrzeuge
         <input type="text" id="edit_route_vehicles">
-        <br>
-        Startzeit
+        <br> Startzeit
         <input type="text" id="edit_route_start_time">
-        <br>
-        Wöchentlich
+        <br> Wöchentlich
         <input type="checkbox" id="edit_route_weekly">
         <br>
         <div id="edit_route_bn"></div>
@@ -57,4 +52,5 @@
     </div>
     <script src="maps.js"></script>
 </body>
+
 </html>

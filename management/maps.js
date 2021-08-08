@@ -15,12 +15,13 @@ maps.forEach(map => {
 document.getElementById("edit").hidden = true
 document.getElementById("edit_route").hidden = true
 
-document.getElementById("bn_edit").addEventListener("click", () =>  openEdit(document.getElementById("select").options[document.getElementById("select").selectedIndex].text))
-document.getElementById("bn_create").addEventListener("click", () =>  createMap(document.getElementById("name").value))
-document.getElementById("bn_edit_route_back").addEventListener("click", () =>  returnToMainWindow())
+document.getElementById("bn_edit").addEventListener("click", () => openEdit(document.getElementById("select").options[document.getElementById("select").selectedIndex].text))
+document.getElementById("bn_delete").addEventListener("click", () => deleteMap(document.getElementById("select").options[document.getElementById("select").selectedIndex].text))
+document.getElementById("bn_create").addEventListener("click", () => createMap(document.getElementById("name").value))
+document.getElementById("bn_edit_route_back").addEventListener("click", () => returnToMainWindow())
 
 function createMap(map) {
-    if(maps.indexOf(map) > -1) {
+    if (maps.indexOf(map) > -1) {
         alert("Diese Karte existiert bereits!")
         returnToMainWindow()
         return
@@ -29,6 +30,11 @@ function createMap(map) {
     httpGet(`http://${localStorage.getItem("ipv4")}/api/map/create/${map}/${localStorage.getItem("sessionId")}`)
     openEdit(map)
     document.getElementById("name").value = ""
+}
+
+function deleteMap(map) {
+    httpGet(`http://${localStorage.getItem("ipv4")}/api/map/delete/${map}/${localStorage.getItem("sessionId")}`)
+    location.reload()
 }
 
 function openEdit(map) {
@@ -61,7 +67,7 @@ function openEdit(map) {
     document.getElementById('edit_bn').innerHTML += newRouteTemplate.replace('%map', map).replace("%onclick", `openRouteEdit('${map}', '')`)
 
     document.getElementById('edit_bn').innerHTML += '<button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
-    document.getElementById("bn_edit_back").addEventListener("click", () =>  returnToMainWindow())
+    document.getElementById("bn_edit_back").addEventListener("click", () => returnToMainWindow())
 }
 
 function openRouteEdit(map, route) {
@@ -72,7 +78,7 @@ function openRouteEdit(map, route) {
     document.getElementById("edit_route_name").innerText = map
 
     const routes = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/routes/${localStorage.getItem("sessionId")}`).res)
-    if(route !== "") {
+    if (route !== "") {
         const index = routes.indexOf(route)
 
         const line = route.split("_")[0]
