@@ -1,6 +1,6 @@
 const select = document.getElementById("select")
 const vehicles = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
-const specTemplate = '<input id="key_%id"><input id="value_%id"><button class="btn btn-danger" id="bn_delete_%id">Löschen</button><br>'
+const specTemplate = '<div><input id="key_%id"><input id="value_%id"><button class="btn btn-danger" id="bn_delete_%id">Löschen</button><br></div>'
 const newSpecTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_new_spec_%vehicle" onclick="%onclick">Neue Spezifikation hinzufügen</button>'
 
 vehicles.forEach(vehicle => {
@@ -35,12 +35,10 @@ function openEdit(vehicle) {
 
     const specs = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicle}/specs/${localStorage.getItem("sessionId")}`).res.split(";")
     specs.forEach(spec => {
-        const key = spec.split("=")[0]
-        const value = spec.split("=")[1]
-        document.getElementById("edit_specs").innerHTML += specTemplate.replace(/%id/g, key)
-
-        document.getElementById(`key_${key}`).value = key
-        document.getElementById(`value_${key}`).value = value
+        var _index = getIndex()
+        document.getElementById("edit_specs").innerHTML += specTemplate.replace(/%id/g, _index)
+        document.getElementById(`key_${_index}`).value = spec.split("=")[0]
+        document.getElementById(`value_${_index}`).value = spec.split("=")[1]
     })
 
     const manufacturer = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicle}/manufacturer/${localStorage.getItem("sessionId")}`).res
@@ -48,19 +46,19 @@ function openEdit(vehicle) {
 
     document.getElementById("manufacturer").value = manufacturer
     document.getElementById("type").value = type
-
     document.getElementById('edit_bn').innerHTML = ""
-
-    document.getElementById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle).replace("%onclick", `addSpec('${vehicle}')`)
-
+    document.getElementById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle).replace("%onclick", `addSpec()`)
     document.getElementById('edit_bn').innerHTML += '<br><br><button type="button" class="btn btn-primary" id="bn_edit_save">Speichern</button>'
-
     document.getElementById('edit_bn').innerHTML += '<br><button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
     document.getElementById("bn_edit_back").addEventListener("click", () => returnToMainWindow())
 }
 
-function addSpec(vehicle) {
+function getIndex() {
+    return document.getElementById('edit_specs').childNodes.length
+}
 
+function addSpec() {
+    document.getElementById('edit_specs').innerHTML += specTemplate.replace(/%id/g, getIndex())
 }
 
 function returnToMainWindow() {
