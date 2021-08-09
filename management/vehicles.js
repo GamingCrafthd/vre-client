@@ -51,12 +51,16 @@ function openEdit(vehicle) {
 
     document.getElementById('edit_bn').innerHTML = ""
 
-    document.getElementById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle).replace("%onclick", `openSpecEdit('${vehicle}', '')`)
+    document.getElementById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle).replace("%onclick", `addSpec('${vehicle}')`)
 
     document.getElementById('edit_bn').innerHTML += '<br><br><button type="button" class="btn btn-primary" id="bn_edit_save">Speichern</button>'
 
     document.getElementById('edit_bn').innerHTML += '<br><button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
     document.getElementById("bn_edit_back").addEventListener("click", () => returnToMainWindow())
+}
+
+function addSpec(vehicle) {
+
 }
 
 function returnToMainWindow() {
