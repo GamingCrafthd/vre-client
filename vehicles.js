@@ -41,14 +41,14 @@ function updateVehiclesByOwnedOnly(ownedOnly) {
 }
 
 function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
-    if (searchedVehicleId === "Open LittlePixelJumper") {
+    if (searchedVehicleId === "LittlePixelJumper") {
         launchLittlePixelJumper()
         return
     }
 
 
     vehicleList.forEach(vehicleId => {
-        if (vehicleId == searchedVehicleId) {
+        if (("" + vehicleId).match(new RegExp(searchedVehicleId, 'g'))) {
             if (ownedOnly) {
                 const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
                 allowedVehicles.forEach(vehicle => {
