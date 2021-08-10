@@ -1,7 +1,7 @@
 var specs = []
 
 function updateCurrentVehicle(current_vehicle) {
-    specs = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${current_vehicle}/specs/${localStorage.getItem("sessionId")}`).res.split(";")
+    specs = api.vehicles(`${current_vehicle}/specs`).res.split(";")
     let index = 0
     specs.forEach(spec => {
         specs[index] = { key: spec.split("=")[0].replace(/%2F/g, "/"), value: spec.split("=")[1].replace(/%2F/g, "/") }

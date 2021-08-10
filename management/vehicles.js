@@ -1,5 +1,5 @@
 const select = doc.getById("select")
-const vehicles = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
+const vehicles = JSON.parse(api.get("vehicles").res)
 const specTemplate = '<div id="%id"><input id="key_%id"><input id="value_%id"><button class="btn btn-danger" id="bn_delete_%id">Löschen</button><br></div>'
 const newSpecTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_new_spec_%vehicle" onclick="addSpec()">Neue Spezifikation hinzufügen</button>'
 
