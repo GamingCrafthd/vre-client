@@ -7,7 +7,7 @@ console.log(
     `color: orange; font-weight: bold; font-size: 2rem;`
 )
 
-document.getElementById("user-text-2").innerText = document.getElementById("user-text-2").innerText.replace("%user", localStorage.getItem("username"))
+doc.getById("user-text-2").innerText = doc.getById("user-text-2").innerText.replace("%user", localStorage.getItem("username"))
 var req = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/role/${localStorage.getItem("sessionId")}`)
 if (req.status != 200) req.res = -1;
 
@@ -46,13 +46,13 @@ switch (req.res) {
         break
 }
 
-document.getElementById("user-text").innerText = document.getElementById("user-text").innerText.replace("%role", role)
+doc.getById("user-text").innerText = doc.getById("user-text").innerText.replace("%role", role)
 
 const viewports = [{
         viewport: "home",
         onopen: () => {
-            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!"];
-            document.getElementById("welcome").innerText = welcomes[Math.floor(Math.random() * welcomes.length)]
+            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!", "Hola!", "Grüß Gott!"];
+            doc.getById("welcome").innerText = welcomes[Math.floor(Math.random() * welcomes.length)]
         }
     },
     {
@@ -60,13 +60,13 @@ const viewports = [{
         onopen: () => {
             updateVehicles()
 
-            document.getElementById("btn_confirm").addEventListener("click", () => {
-                document.getElementById("vehicles2").innerHTML = "";
+            doc.getById("btn_confirm").addEventListener("click", () => {
+                doc.getById("vehicles2").innerHTML = "";
 
-                if (document.getElementById("id_cb").checked) {
-                    updateVehiclesWithSearch(document.getElementById("allowed_cb").checked, document.getElementById("id_input").value)
+                if (doc.getById("id_cb").checked) {
+                    updateVehiclesWithSearch(doc.getById("allowed_cb").checked, doc.getById("id_input").value)
                 } else {
-                    updateVehiclesByOwnedOnly(document.getElementById("allowed_cb").checked)
+                    updateVehiclesByOwnedOnly(doc.getById("allowed_cb").checked)
                 }
             })
         }
@@ -107,10 +107,10 @@ Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
     x.addEventListener("click", () => {
         for (var y of document.getElementsByClassName("active")) {
             y.classList.remove("active")
-            document.getElementById(y.dataset.viewport).hidden = true
+            doc.getById(y.dataset.viewport).hidden = true
         }
         x.classList.add("active")
-        document.getElementById(x.dataset.viewport).hidden = false
+        doc.getById(x.dataset.viewport).hidden = false
 
         viewports.forEach(vp => {
             if (vp.viewport === x.dataset.viewport) vp.onopen()

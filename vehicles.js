@@ -1,7 +1,7 @@
 const specTemplate = "<p class=\"spec\">%key: %value</p>"
 const vehicleTemplate = "<div id=\"%id\" class=\"vehicle\"><img src=\"vehicles/%img.png\" alt=\"\"><p class=\"type\">%id - %manufacturer %type</p>%specs</div>"
 
-const vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
+var vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
 const allowedVehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/types/${localStorage.getItem("sessionId")}`).res.split(",")
 
 const imageFiles = [{
@@ -76,5 +76,5 @@ function createVehicle(vehicleId) {
         if (img.types.includes(type)) image = img.file
     })
 
-    document.getElementById("vehicles2").innerHTML += vehicleTemplate.replace("%manufacturer", manufacturer).replace("%type", type).replace("%id", vehicleId).replace("%id", vehicleId).replace("%specs", specsText).replace("%img", image)
+    doc.getById("vehicles2").innerHTML += vehicleTemplate.replace("%manufacturer", manufacturer).replace("%type", type).replace("%id", vehicleId).replace("%id", vehicleId).replace("%specs", specsText).replace("%img", image)
 }
