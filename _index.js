@@ -7,7 +7,7 @@ console.log(
     `color: orange; font-weight: bold; font-size: 2rem;`
 )
 
-doc.getById("user-text-2").innerText = doc.getById("user-text-2").innerText.replace("%user", localStorage.getItem("username"))
+doc.getById("user-text-2").innerText = doc.getById("user-text-2").innerText.replace("%user", api.user(`${localStorage.getItem("username")}/display`).res)
 var req = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/role/${localStorage.getItem("sessionId")}`)
 if (req.status != 200) req.res = -1;
 
@@ -51,7 +51,7 @@ doc.getById("user-text").innerText = doc.getById("user-text").innerText.replace(
 const viewports = [{
         viewport: "home",
         onopen: () => {
-            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!", "Hola!", "Grüß Gott!"];
+            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!", "Hola!", "Grüß Gott!", "Grüße Gemüse!", "Ey du Arschloch!", "Fick dich!"];
             doc.getById("welcome").innerText = welcomes[Math.floor(Math.random() * welcomes.length)]
         }
     },

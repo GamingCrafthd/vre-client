@@ -44,10 +44,12 @@ function openEdit(user) {
 
     doc.getById("edit_name").innerHTML = user
 
+    const display = api.user(`${user}/display`).res
     const role = api.user(`${user}/role`).res
     const types = api.user(`${user}/types`).res
     const seenRules = api.user(`${user}/seenRules`).res
 
+    doc.getById("edit_display").value = display
     doc.getById("edit_role").selectedIndex = parseInt(role)
     doc.getById("edit_types").value = types
     doc.getById("edit_rules").value = seenRules
@@ -64,6 +66,7 @@ function openEdit(user) {
 function saveUser(user) {
     api.user(`${user}/set/role/${doc.getById("edit_role").selectedIndex}`)
     api.user(`${user}/set/types/${doc.getById("edit_types").value}`)
+    api.user(`${user}/set/display/${doc.getById("edit_display").value}`)
     returnToMainWindow()
 }
 
