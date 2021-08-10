@@ -1,9 +1,9 @@
-const select = document.getElementById("select")
+const select = doc.getById("select")
 const vehicles = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
 const specTemplate = '<div id="%id"><input id="key_%id"><input id="value_%id"><button class="btn btn-danger" id="bn_delete_%id">Löschen</button><br></div>'
 const newSpecTemplate = '<button type="button" class="btn btn-primary" id="bn_edit_new_spec_%vehicle" onclick="addSpec()">Neue Spezifikation hinzufügen</button>'
 
-document.remove = x => { document.getElementById(x).parentNode.removeChild(document.getElementById(x)) }
+document.remove = x => { doc.getById(x).parentNode.removeChild(doc.getById(x)) }
 
 vehicles.forEach(vehicle => {
     var opt = document.createElement('option')
@@ -12,55 +12,47 @@ vehicles.forEach(vehicle => {
     select.appendChild(opt)
 })
 
-document.getElementById("bn_edit").addEventListener("click", () => openEdit(document.getElementById("select").options[document.getElementById("select").selectedIndex].text))
-document.getElementById("bn_delete").addEventListener("click", () => deleteVehicle(document.getElementById("select").options[document.getElementById("select").selectedIndex].text))
-document.getElementById("bn_create").addEventListener("click", () => createVehicle(document.getElementById("name").value))
+doc.getById("bn_edit").addEventListener("click", () => openEdit(doc.getById("select").options[doc.getById("select").selectedIndex].text))
+doc.getById("bn_delete").addEventListener("click", () => deleteVehicle(doc.getById("select").options[doc.getById("select").selectedIndex].text))
+doc.getById("bn_create").addEventListener("click", () => createVehicle(doc.getById("name").value))
 
-document.getElementById("edit").hidden = true
+doc.getById("edit").hidden = true
 
 function createVehicle(vehicle) {
-    httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/create/${vehicle}/${localStorage.getItem("sessionId")}`)
+    api.vehicles(`create/${vehicle}`)
     openEdit(vehicle)
 }
 
 function deleteVehicle(vehicle) {
-    httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/delete/${vehicle}/${localStorage.getItem("sessionId")}`)
+    api.vehicles(`delete/${vehicle}`)
     location.reload()
 }
 
 function openEdit(vehicle) {
     updateCurrentVehicle(vehicle)
 
-    document.getElementById("start").hidden = true
-    document.getElementById("edit").hidden = false
+    doc.getById("start").hidden = true
+    doc.getById("edit").hidden = false
 
-    document.getElementById("edit_name").innerText = vehicle
+    doc.getById("edit_name").innerText = vehicle
 
-    const manufacturer = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicle}/manufacturer/${localStorage.getItem("sessionId")}`).res
-    const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicle}/type/${localStorage.getItem("sessionId")}`).res
+    const manufacturer = api.vehicles(`${vehicle}/manufacturer`).res
+    const type = api.vehicles(`${vehicle}/type`).res
 
-    document.getElementById("manufacturer").value = manufacturer
-    document.getElementById("type").value = type
-    document.getElementById('edit_bn').innerHTML = ""
-    document.getElementById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle)
-    document.getElementById('edit_bn').innerHTML += `<br><br><button type="button" class="btn btn-primary" id="bn_edit_save" onclick="saveVehicle('${vehicle}')">Speichern</button>`
-    document.getElementById('edit_bn').innerHTML += '<br><button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
-    document.getElementById("bn_edit_back").addEventListener("click", () => returnToMainWindow())
+    doc.getById("manufacturer").value = manufacturer
+    doc.getById("type").value = type
+    doc.getById('edit_bn').innerHTML = ""
+    doc.getById('edit_bn').innerHTML += newSpecTemplate.replace('%vehicle', vehicle)
+    doc.getById('edit_bn').innerHTML += `<br><br><button type="button" class="btn btn-primary" id="bn_edit_save" onclick="saveVehicle('${vehicle}')">Speichern</button>`
+    doc.getById('edit_bn').innerHTML += '<br><button type="button" class="btn btn-secondary" id="bn_edit_back">Zurück</button>'
+    doc.getById("bn_edit_back").addEventListener("click", () => returnToMainWindow())
 }
 
 function saveVehicle(vehicle) {
-    var get = `http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicle}/edit/${document.getElementById("manufacturer").value}/${document.getElementById("type").value}/${getSpecsFormatted()}/${localStorage.getItem("sessionId")}`
-    httpGet(get)
+    api.vehicles(`${vehicle}/edit/${doc.getById("manufacturer").value}/${doc.getById("type").value}/${getSpecsFormatted()}`)
     returnToMainWindow()
 }
 
 function returnToMainWindow() {
     location.reload()
-}
-
-function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.open("GET", url, false)
-    xmlHttp.send(null)
-    return { res: xmlHttp.responseText, status: xmlHttp.status }
 }

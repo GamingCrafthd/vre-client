@@ -44,13 +44,11 @@ function update() {
         value.id = "value_" + index
 
         key.addEventListener('change', () => {
-            console.log(key.value)
             specs[parseInt(key.id.replace("key_", ""))].key = key.value
         })
 
         value.addEventListener('change', () => {
-            console.log(value.value)
-            specs[parseInt(value.id.replace("key_", ""))].value = value.value
+            specs[parseInt(value.id.replace("value_", ""))].value = value.value
         })
 
         specDiv.appendChild(key)
