@@ -52,7 +52,7 @@ function openEdit(user) {
     doc.getById("edit_display").value = display
     doc.getById("edit_role").selectedIndex = parseInt(role)
     doc.getById("edit_types").value = types
-    doc.getById("edit_rules").value = seenRules
+    doc.getById("edit_rules").innerHTML = seenRules
 
     doc.getById("edit_bn").innerHTML += `<button class='btn btn-primary' onclick='saveUser(${user})'>Speichern</button>`
     doc.getById("edit_bn").innerHTML += "<button class='btn btn-secondary' onclick='returnToMainWindow()'>Zurück</button>"
