@@ -22,6 +22,7 @@ const imageFiles = [{
 }]
 
 function updateVehicles() {
+    doc.getById("vehicles2").innerHTML = ""
     vehicleList.forEach(vehicleId => {
         createVehicle(vehicleId)
     })

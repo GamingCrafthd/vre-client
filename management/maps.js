@@ -54,10 +54,11 @@ function openEdit(map) {
         const firstStop = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/firstStop/${localStorage.getItem("sessionId")}`).res
         const lastStop = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/lastStop/${localStorage.getItem("sessionId")}`).res
         const startTime = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/startTime/${localStorage.getItem("sessionId")}`).res
+        const endTime = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/endTime/${localStorage.getItem("sessionId")}`).res
         const vehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/vehicles/${localStorage.getItem("sessionId")}`).res
         const weekly = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/weekly/${localStorage.getItem("sessionId")}`).res
 
-        const display = line + "/" + course + " " + firstStop + " --> " + lastStop + " (" + startTime + ") [" + vehicles + "]" + (weekly === "true" ? " (jede Woche)" : "")
+        const display = line + "/" + course + " " + firstStop + " --> " + lastStop + " (" + startTime + "-" + endTime + ") [" + vehicles + "]" + (weekly === "true" ? " (jede Woche)" : "")
 
         document.getElementById("edit_list").innerHTML += routeTemplate.replace("%id", `route_${index}`).replace("%display", display).replace("%onclick", `openRouteEdit('${map}', '${res}')`)
     })
@@ -86,16 +87,24 @@ function openRouteEdit(map, route) {
         const firstStop = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/firstStop/${localStorage.getItem("sessionId")}`).res
         const lastStop = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/lastStop/${localStorage.getItem("sessionId")}`).res
         const startTime = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/startTime/${localStorage.getItem("sessionId")}`).res
+        const endTime = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/endTime/${localStorage.getItem("sessionId")}`).res
         const vehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/vehicles/${localStorage.getItem("sessionId")}`).res
-        const weekly = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/weekly/${localStorage.getItem("sessionId")}`).res
+        const daysOfWeek = httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index}/daysOfWeek/${localStorage.getItem("sessionId")}`).res.toString()
 
         document.getElementById("edit_route_line").value = line
         document.getElementById("edit_route_course").value = course
         document.getElementById("edit_route_first_stop").value = firstStop
         document.getElementById("edit_route_last_stop").value = lastStop
         document.getElementById("edit_route_start_time").value = startTime
+        document.getElementById("edit_route_end_time").value = endTime
         document.getElementById("edit_route_vehicles").value = vehicles
-        document.getElementById("edit_route_weekly").checked = (weekly === "true")
+        document.getElementById("edit_route_monday").checked = daysOfWeek.includes("1")
+        document.getElementById("edit_route_tuesday").checked = daysOfWeek.includes("2")
+        document.getElementById("edit_route_wednesday").checked = daysOfWeek.includes("3")
+        document.getElementById("edit_route_thursday").checked = daysOfWeek.includes("4")
+        document.getElementById("edit_route_friday").checked = daysOfWeek.includes("5")
+        document.getElementById("edit_route_saturday").checked = daysOfWeek.includes("6")
+        document.getElementById("edit_route_sunday").checked = daysOfWeek.includes("7")
 
         document.getElementById("edit_route_delete_bn").innerHTML = deleteRouteTemplate.replace("%onclick", `deleteRoute('${map}', ${index})`)
     } else {
@@ -104,8 +113,15 @@ function openRouteEdit(map, route) {
         document.getElementById("edit_route_first_stop").value = ""
         document.getElementById("edit_route_last_stop").value = ""
         document.getElementById("edit_route_start_time").value = ""
+        document.getElementById("edit_route_end_time").value = ""
         document.getElementById("edit_route_vehicles").value = ""
-        document.getElementById("edit_route_weekly").checked = false
+        document.getElementById("edit_route_monday").checked = false
+        document.getElementById("edit_route_tuesday").checked = false
+        document.getElementById("edit_route_wednesday").checked = false
+        document.getElementById("edit_route_thursday").checked = false
+        document.getElementById("edit_route_friday").checked = false
+        document.getElementById("edit_route_saturday").checked = false
+        document.getElementById("edit_route_sunday").checked = false
 
         document.getElementById("edit_route_delete_bn").innerHTML = ""
     }
@@ -119,10 +135,11 @@ function saveRoute(map, index) {
     const firstStop = document.getElementById("edit_route_first_stop").value
     const lastStop = document.getElementById("edit_route_last_stop").value
     const startTime = document.getElementById("edit_route_start_time").value
+    const endTime = document.getElementById("edit_route_end_time").value
     const vehicles = document.getElementById("edit_route_vehicles").value
-    const weekly = document.getElementById("edit_route_weekly").checked
-
-    httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index >= 0 ? (index + "/edit") : "create"}/${line}/${course}/${firstStop}/${lastStop}/${startTime}/${vehicles}/${weekly}/${localStorage.getItem("sessionId")}`)
+    const daysOfWeek = `${document.getElementById("edit_route_monday").checked ? "1" : ""}${document.getElementById("edit_route_tuesday").checked ? "2" : ""}${document.getElementById("edit_route_wednesday").checked ? "3" : ""}${document.getElementById("edit_route_thursday").checked ? "4" : ""}${document.getElementById("edit_route_friday").checked ? "5" : ""}${document.getElementById("edit_route_saturday").checked ? "6" : ""}${document.getElementById("edit_route_sunday").checked ? "7" : ""}`
+    
+    httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/${index >= 0 ? (index + "/edit") : "create"}/${line}/${course}/${firstStop}/${lastStop}/${startTime}/${endTime}/${vehicles}/${daysOfWeek}/${localStorage.getItem("sessionId")}`)
 
     openEdit(map)
 }
