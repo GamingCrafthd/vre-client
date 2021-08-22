@@ -27,7 +27,7 @@ roles.forEach(role => {
 })
 
 doc.getById("bn_delete").addEventListener("click", () => {
-    api.user(`${doc.getById("select").options[doc.getById("select").selectedIndex].text}/delete`)
+    api.user(`${doc.getById("select").value}/delete`)
     location.reload()
 })
 
@@ -36,7 +36,7 @@ doc.getById("bn_create").addEventListener("click", () => {
     location.reload()
 })
 
-doc.getById("bn_edit").addEventListener("click", () => openEdit(doc.getById("select").options[doc.getById("select").selectedIndex].text))
+doc.getById("bn_edit").addEventListener("click", () => openEdit(doc.getById("select").value))
 
 function openEdit(user) {
     doc.getById("start").hidden = true
@@ -54,7 +54,7 @@ function openEdit(user) {
     doc.getById("edit_types").value = types
     doc.getById("edit_rules").innerHTML = seenRules
 
-    doc.getById("edit_bn").innerHTML += `<button class='btn btn-primary' onclick='saveUser(${user})'>Speichern</button>`
+    doc.getById("edit_bn").innerHTML += `<button class='btn btn-primary' onclick="saveUser('${user}')">Speichern</button>`
     doc.getById("edit_bn").innerHTML += "<button class='btn btn-secondary' onclick='returnToMainWindow()'>Zurück</button>"
 
     doc.getById("bn_edit_resetpswd").addEventListener("click", () => {
