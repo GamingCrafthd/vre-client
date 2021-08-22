@@ -161,6 +161,16 @@ h1 {
     display: inline-block;
 }
 
+.rule:hover {
+    background-color: #F6F6F6;
+    border-color: #F2F2F2;
+}
+
+.rule:active {
+    background-color: #F4F4F4;
+    border-color: #F0F0F0;
+}
+
 .pdf {
     padding-left: 0.5em;
     padding-right: 1em;

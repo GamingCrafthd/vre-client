@@ -35,14 +35,14 @@ button {
 }
 
 #submit:hover {
-    border-color: #b94d00;
-    color: #b94d00;
+    background-color: #b94d0015;
     transition: all .2s;
 }
 
 #submit:active {
-    border-color: #b94d00;
-    color: #b94d00;
+    border-color: #fff;
+    color: #fff;
+    background-color: #E46000;
     transition: all .2s;
 }
 
