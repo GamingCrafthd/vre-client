@@ -8,7 +8,9 @@ doc.getById("edit").hidden = true
 users.forEach(user => {
     var opt = document.createElement("option")
     opt.value = user
+    const display = api.user(`${user}/display`).res
     opt.innerHTML = user
+    if (display !== "") opt.innerHTML = display
     doc.getById("select").appendChild(opt)
 });
 
@@ -59,7 +61,7 @@ function openEdit(user) {
 
     doc.getById("bn_edit_resetpswd").addEventListener("click", () => {
         alert("Passwort in Zwischenablage kopiert!")
-        clipboard.writeText(user + " : " + api.user(`${user}/resetpassword`).res)
+        clipboard.writeText(user + ": " + api.user(`${user}/resetpassword`).res)
     })
 }
 
