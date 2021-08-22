@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-
+require('update-electron-app')({
+    repo: "GamingCrafthd/vre-client"
+})
 if (require('electron-squirrel-startup')) return app.quit()
 if (handleSquirrelEvent()) return
 

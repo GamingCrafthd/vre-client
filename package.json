@@ -1,6 +1,6 @@
 {
     "name": "VRE-Client",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Der VRE Client",
     "main": "index.js",
     "scripts": {
@@ -11,7 +11,8 @@
     "author": "GamingCraft_hd & JustMattis",
     "license": "MIT",
     "dependencies": {
-        "electron-squirrel-startup": "^1.0.0"
+        "electron-squirrel-startup": "^1.0.0",
+        "update-electron-app": "^2.0.1"
     },
     "devDependencies": {
         "@electron-forge/cli": "^6.0.0-beta.59",
