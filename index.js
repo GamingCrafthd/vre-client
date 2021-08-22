@@ -37,6 +37,7 @@ function handleSquirrelEvent() {
 }
 
 app.whenReady().then(() => {
+    const loading_screen = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
     const window = new BrowserWindow({
         title: "VRE Client",
         width: 300,
@@ -47,10 +48,20 @@ app.whenReady().then(() => {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
-        }
+        },
+        show: false
     })
     window.menuBarVisible = false
     window.loadFile("login.html")
+    setTimeout(() => {
+        loading_screen.hide()
+        window.show()
+    }, 5000)
+    window.on('close', () => {
+        console.log("Good-bye!")
+        const w = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
+        setTimeout(app.quit, 5000)
+    })
     ipcMain.on('resize', (event, arg) => {
         window.setSize(arg.width, arg.height)
         window.center()
@@ -62,27 +73,29 @@ app.whenReady().then(() => {
     })
 })
 
-ipcMain.on('manage:vehicles', event => openWindow("management/vehicles.html", "Fuhrparkverwaltung"))
+ipcMain.on('manage:vehicles', event => openWindow("management/vehicles.html", "Fuhrparkverwaltung", true, 640, 480))
 
-ipcMain.on('manage:maps', event => openWindow("management/maps.html", "Mapverwaltung"))
+ipcMain.on('manage:maps', event => openWindow("management/maps.html", "Mapverwaltung", true, 640, 480))
 
-ipcMain.on('manage:rules', event => openWindow("management/rules.html", "Weisungsverwaltung"))
+ipcMain.on('manage:rules', event => openWindow("management/rules.html", "Weisungsverwaltung", true, 640, 480))
 
-ipcMain.on('manage:user', event => openWindow("management/user.html", "Userverwaltung"))
+ipcMain.on('manage:user', event => openWindow("management/user.html", "Userverwaltung", true, 640, 480))
 
-function openWindow(file, name) {
+function openWindow(file, name, frame, width, height) {
     const window = new BrowserWindow({
         title: name,
-        width: 640,
-        height: 480,
+        width: width,
+        height: height,
         autoHideMenuBar: true,
         icon: "icon.png",
         resizable: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
-        }
+        },
+        frame: frame
     })
     window.menuBarVisible = false
     window.loadFile(file)
+    return window;
 }
