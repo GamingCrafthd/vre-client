@@ -51,7 +51,7 @@ doc.getById("user-text").innerText = doc.getById("user-text").innerText.replace(
 const viewports = [{
         viewport: "home",
         onopen: () => {
-            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!", "Hola!", "Grüß Gott!", "Grüße Gemüse!", "Ey du Arschloch!", "Fick dich!"];
+            const welcomes = ["Willkommen!", "Moin!", "Guten Morgen!", "Guten Tag!", "Guten Abend!", "Bonjour!", "Hi!", "Hallo!", "Servus!", "Moinsen!", "Grüzli!", "Hola!", "Grüß Gott!", "Grüße Gemüse!"];
             doc.getById("welcome").innerText = welcomes[Math.floor(Math.random() * welcomes.length)]
         }
     },
@@ -102,6 +102,8 @@ const viewports = [{
         }
     }
 ]
+
+viewports[0].onopen()
 
 Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
     x.addEventListener("click", () => {
