@@ -56,7 +56,7 @@ app.whenReady().then(() => {
     setTimeout(() => {
         loading_screen.hide()
         window.show()
-    }, 5000)
+    }, 10000)
     window.on('close', () => {
         console.log("Good-bye!")
         const w = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
