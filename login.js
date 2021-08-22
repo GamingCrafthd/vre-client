@@ -5,7 +5,6 @@ doc.getById("submit").addEventListener('click', () => {
 
     const req = httpGet(`http://${ip}/api/user/login/${user}/${password}`)
     const sessionId = req.res
-    const status = req.status
 
     localStorage.setItem("sessionId", sessionId)
     localStorage.setItem("username", user)
