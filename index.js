@@ -1,5 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 
+if (require('electron-squirrel-startup')) return app.quit();
+
 app.whenReady().then(() => {
     const window = new BrowserWindow({
         title: "VRE Client",
