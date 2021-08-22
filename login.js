@@ -1,7 +1,7 @@
 doc.getById("submit").addEventListener('click', () => {
-    const ip = doc.getById("ip").value || "localhost:5000"
-    const user = doc.getById("username").value || "123456"
-    const password = doc.getById("password").value || "123"
+    const ip = doc.getById("ip").value
+    const user = doc.getById("username").value
+    const password = doc.getById("password").value
 
     const req = httpGet(`http://${ip}/api/user/login/${user}/${password}`)
     const sessionId = req.res
