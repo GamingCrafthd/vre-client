@@ -21,14 +21,17 @@ const imageFiles = [{
     types: ["GT8"]
 }]
 
-function updateVehicles() {
+async function updateVehicles() {
+    doc.getById("vehicles2").hidden = true
     doc.getById("vehicles2").innerHTML = ""
     vehicleList.forEach(vehicleId => {
         createVehicle(vehicleId)
     })
+    doc.getById("vehicles2").hidden = false
 }
 
-function updateVehiclesByOwnedOnly(ownedOnly) {
+async function updateVehiclesByOwnedOnly(ownedOnly) {
+    doc.getById("vehicles2").hidden = true
     vehicleList.forEach(vehicleId => {
         if (ownedOnly) {
             const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
@@ -39,9 +42,11 @@ function updateVehiclesByOwnedOnly(ownedOnly) {
             createVehicle(vehicleId)
         }
     })
+    doc.getById("vehicles2").hidden = false
 }
 
-function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
+async function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
+    doc.getById("vehicles2").hidden = true
     if (searchedVehicleId === "LittlePixelJumper") {
         launchLittlePixelJumper()
         return
@@ -60,6 +65,7 @@ function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
             }
         }
     })
+    doc.getById("vehicles2").hidden = false
 }
 
 function createVehicle(vehicleId) {
