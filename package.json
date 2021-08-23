@@ -1,6 +1,6 @@
 {
     "name": "VRE-Client",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Der VRE Client",
     "main": "index.js",
     "scripts": {
