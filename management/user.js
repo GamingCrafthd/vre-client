@@ -35,6 +35,7 @@ doc.getById("bn_delete").addEventListener("click", () => {
 
 doc.getById("bn_create").addEventListener("click", () => {
     api.user(`register/${doc.getById("name").value}/${doc.getById("role").selectedIndex}`)
+    api.user(`${doc.getById("name").value}/set/display/${doc.getById("display").value}`)
     location.reload()
 })
 

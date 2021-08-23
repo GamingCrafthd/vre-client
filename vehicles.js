@@ -71,12 +71,19 @@ async function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
 function createVehicle(vehicleId) {
     const manufacturer = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/manufacturer/${localStorage.getItem("sessionId")}`).res
     const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
-    const specs = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/specs/${localStorage.getItem("sessionId")}`).res.split(";")
+    const specs = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/specs/${localStorage.getItem("sessionId")}`).res
 
     let specsText = ""
-    specs.forEach(spec => {
-        specsText += specTemplate.replace("%key", spec.split("=")[0]).replace("%value", spec.split("=")[1])
-    })
+
+    if (specs == "NONE") {
+        specsText = "";
+    } else {
+        specs.split(";").forEach(spec => {
+            specsText += specTemplate.replace("%key", spec.split("=")[0]).replace("%value", spec.split("=")[1])
+        })
+    }
+
+
 
     let image = "default"
     imageFiles.forEach(img => {
