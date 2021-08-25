@@ -8,10 +8,10 @@ console.log(
 )
 
 doc.getById("user-text-2").innerText = doc.getById("user-text-2").innerText.replace("%user", api.user(`${localStorage.getItem("username")}/display`).res)
-var req = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/role/${localStorage.getItem("sessionId")}`)
-if (req.status != 200) req.res = -1;
+const req = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/role/${localStorage.getItem("sessionId")}`);
+if (req.status !== 200) req.res = -1;
 
-var role = ""
+let role = "";
 switch (req.res) {
     case "-1":
         role = "Interner Fehler"
@@ -107,7 +107,7 @@ viewports[0].onopen()
 
 Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
     x.addEventListener("click", () => {
-        for (var y of document.getElementsByClassName("active")) {
+        for (const y of document.getElementsByClassName("active")) {
             y.classList.remove("active")
             doc.getById(y.dataset.viewport).hidden = true
         }
@@ -120,14 +120,14 @@ Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
     })
 });
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
-})
+});
 
 
 function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest()
+    const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false)
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }

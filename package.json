@@ -27,7 +27,8 @@
             "packagerConfig": {
                 "icon": "icon.png"
             },
-            "makers": [{
+            "makers": [
+                {
                     "name": "@electron-forge/maker-squirrel",
                     "config": {
                         "name": "VRE-Client"

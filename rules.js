@@ -9,7 +9,7 @@ function loadRules() {
 
     rules.forEach(rule => {
         const url = httpGet(`http://${localStorage.getItem("ipv4")}/api/rules/${rule}/${localStorage.getItem("sessionId")}`).res
-        var x = ""
+        let x = "";
         isRead(rule, seenRules, found => {
             if (!found) x = `<span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"><span class="visually-hidden">unread messages</span>`
         })
@@ -26,7 +26,7 @@ function markAsRead(rule) {
 }
 
 function isRead(rule, seenRules, cb) {
-    var found = false
+    let found = false;
     seenRules.forEach(seenRule => {
         if (seenRule == rule) found = true
     })

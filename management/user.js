@@ -6,7 +6,7 @@ const roles = ["Fahrschüler", "Fahrer", "Fahrzeugbeauftragter", "Fahrlehrer", "
 doc.getById("edit").hidden = true
 
 users.forEach(user => {
-    var opt = document.createElement("option")
+    const opt = document.createElement("option");
     opt.value = user
     const display = api.user(`${user}/display`).res
     opt.innerHTML = user
@@ -15,14 +15,14 @@ users.forEach(user => {
 });
 
 roles.forEach(role => {
-    var opt = document.createElement("option")
+    const opt = document.createElement("option");
     opt.value = role
     opt.innerHTML = role
     doc.getById("role").appendChild(opt)
 })
 
 roles.forEach(role => {
-    var opt = document.createElement("option")
+    const opt = document.createElement("option");
     opt.value = role
     opt.innerHTML = role
     doc.getById("edit_role").appendChild(opt)

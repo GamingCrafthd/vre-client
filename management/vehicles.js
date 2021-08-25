@@ -6,7 +6,7 @@ const newSpecTemplate = '<button type="button" class="btn btn-primary" id="bn_ed
 document.remove = x => { doc.getById(x).parentNode.removeChild(doc.getById(x)) }
 
 vehicles.forEach(vehicle => {
-    var opt = document.createElement('option')
+    const opt = document.createElement('option');
     opt.value = vehicle
     opt.innerHTML = vehicle
     select.appendChild(opt)

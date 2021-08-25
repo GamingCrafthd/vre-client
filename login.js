@@ -13,7 +13,7 @@ doc.getById("submit").addEventListener('click', () => {
 })
 
 function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest()
+    const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false)
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }

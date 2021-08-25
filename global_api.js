@@ -4,13 +4,13 @@ const doc = {
     },
 
     remove: id => {
-        doc.getById(id).parentNode.removeChild(doc().getById(id))
+        doc.getById(id).parentNode.removeChild(document.getElementById(id))
     }
 }
 
 const http = {
     get: uri => {
-        var xmlHttp = new XMLHttpRequest()
+        const xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", uri, false)
         xmlHttp.send(null)
         return { res: xmlHttp.responseText, status: xmlHttp.status }

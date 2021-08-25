@@ -1,9 +1,9 @@
-var specs = []
+let specs = [];
 
 function updateCurrentVehicle(current_vehicle) {
     specs = api.vehicles(`${current_vehicle}/specs`).res
 
-    if (specs == "NONE") {
+    if (specs === "NONE") {
         specs = []
     } else {
         specs = specs.split(";")
@@ -31,7 +31,8 @@ function removeSpec(index) {
 }
 
 function getSpecsFormatted() {
-    var specs_formatted = []
+    const specs_formatted = [];
+    if (specs.length === 0) return "NONE"
     specs.forEach(spec => specs_formatted.push(`${spec.key.replace(/\//g, "%2F")}=${spec.value.replace(/\//g, "%2F")}`))
     return specs_formatted.join(";").replace(/;=/g, "")
 }
@@ -43,7 +44,7 @@ function update() {
     specs.forEach(spec => {
 
         let specDiv = document.createElement("div")
-        specDiv.id = index
+        specDiv.id = index.toString()
 
         let key = document.createElement("input")
         let value = document.createElement("input")

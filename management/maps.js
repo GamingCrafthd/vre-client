@@ -6,7 +6,7 @@ const saveRouteTemplate = '<button type="button" class="btn btn-primary" id="bn_
 const deleteRouteTemplate = '<button type="button" class="btn btn-danger" id ="bn_edit_delete_route" onclick="%onclick">Löschen</button>'
 
 maps.forEach(map => {
-    var opt = document.createElement('option')
+    const opt = document.createElement('option');
     opt.value = map
     opt.innerHTML = map
     select.appendChild(opt)
@@ -45,7 +45,7 @@ function openEdit(map) {
     document.getElementById("edit_name").innerText = map
     document.getElementById("edit_list").innerHTML = ""
 
-    var routes = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/routes/${localStorage.getItem("sessionId")}`).res)
+    const routes = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/map/${map}/routes/${localStorage.getItem("sessionId")}`).res);
     routes.forEach(res => {
         const index = routes.indexOf(res)
 
@@ -155,7 +155,7 @@ function returnToMainWindow() {
 }
 
 function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest()
+    const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false)
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }

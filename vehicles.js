@@ -1,7 +1,7 @@
 const specTemplate = "<p class=\"spec\">%key: %value</p>"
 const vehicleTemplate = "<div id=\"%id\" class=\"vehicle\"><img src=\"vehicles/%img.png\" alt=\"\"><p class=\"type\">%id - %manufacturer %type</p>%specs</div>"
 
-var vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
+const vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res);
 const allowedVehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/types/${localStorage.getItem("sessionId")}`).res.split(",")
 
 const imageFiles = [{
@@ -58,7 +58,7 @@ async function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
             if (ownedOnly) {
                 const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
                 allowedVehicles.forEach(vehicle => {
-                    if (vehicle == type) createVehicle(vehicleId)
+                    if (vehicle === type) createVehicle(vehicleId)
                 })
             } else {
                 createVehicle(vehicleId)
@@ -75,7 +75,7 @@ function createVehicle(vehicleId) {
 
     let specsText = ""
 
-    if (specs == "NONE") {
+    if (specs === "NONE") {
         specsText = "";
     } else {
         specs.split(";").forEach(spec => {

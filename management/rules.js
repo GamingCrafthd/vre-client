@@ -1,5 +1,5 @@
 JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/rules/${localStorage.getItem("sessionId")}`).res).forEach(rule => {
-    var opt = document.createElement('option')
+    const opt = document.createElement('option');
     opt.value = rule
     opt.innerHTML = rule
     document.getElementById("delete").appendChild(opt)
@@ -16,7 +16,7 @@ document.getElementById("delete_confirm").addEventListener('click', () => {
 })
 
 function httpGet(url) {
-    var xmlHttp = new XMLHttpRequest()
+    const xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false)
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }
