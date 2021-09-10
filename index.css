@@ -198,3 +198,11 @@ h1 {
     left: calc(50% - 811px / 2);
     top: calc(50% - 100px);
 }
+
+#planner_mapSelect {
+    text-align: center;
+}
+
+#planner_routeSelect {
+    text-align: center;
+}

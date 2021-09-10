@@ -57,6 +57,18 @@
 
     <div id="planner" class="viewport" hidden>
         <h1>Fahrplanung</h1>
+
+        <div id="planner_mapSelect">
+            <select id="planner_mapsSelect_select"></select>
+            <br><br><br>
+            <button id="planner_mapSelect_button" type="button" class="btn btn-primary">Öffnen</button>
+        </div>
+
+        <div id="planner_routeSelect">
+            <div id="planner_routeSelect_name"></div>
+            <div id="planner_routeSelect_accordition" class="accordition"></div>
+            <button id="planner_routeSelect_backButton" type="button" class="btn btn-secondary">Zurück</button>
+        </div>
     </div>
 
     <div id="manage" class="viewport" hidden>
@@ -78,6 +90,7 @@
     <script src="_index.js"></script>
     <script src="vehicles.js"></script>
     <script src="manage.js"></script>
+    <script src="planner.js"></script>
 </body>
 
 </html>

@@ -92,7 +92,7 @@ const viewports = [{
     {
         viewport: "planner",
         onopen: () => {
-            console.log("kek")
+            loadMaps()
         }
     },
     {
