@@ -58,11 +58,12 @@ app.whenReady().then(() => {
     setTimeout(() => {
         loading_screen.hide()
         window.show()
-    }, 10000)
+    }, false ? 10000 : 1)
     window.on('close', () => {
         console.log("Good-bye!")
         const w = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
-        setTimeout(app.quit, 5000)
+        //setTimeout(app.quit, 5000)
+        setTimeout(app.quit, false ? 5000 : 1)
     })
     ipcMain.on('resize', (event, arg) => {
         window.setSize(arg.width, arg.height)
