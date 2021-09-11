@@ -57,37 +57,45 @@
 
     <div id="planner" class="viewport" hidden>
         <h1>Fahrplanung</h1>
+        Wochentag
+        <select id="planner_dayOfWeek">
+            <option value="1">Montag</option>
+            <option value="2">Dienstag</option>
+            <option value="3">Mittwoch</option>
+            <option value="4">Donnerstag</option>
+            <option value="5">Freitag</option>
+            <option value="6">Samstag</option>
+            <option value="7">Sonntag</option>
+        </select>
 
-        <div id="planner_mapSelect">
-            <select id="planner_mapsSelect_select"></select>
-            <br><br><br>
-            <button id="planner_mapSelect_button" type="button" class="btn btn-primary">Öffnen</button>
+        <br><br><br>
+
+        <div id="planner_left">
+            <div id="planner_mapSelect">
+                <select id="planner_mapsSelect_select"></select>
+                <br><br><br>
+                <button id="planner_mapSelect_button" type="button" class="btn btn-primary">Öffnen</button>
+            </div>
+
+            <div id="planner_routeSelect" hidden>
+                <div id="planner_routeSelect_name"></div>
+                <div id="planner_routeSelect_accordition" class="accordition"></div>
+                <button id="planner_routeSelect_backButton" type="button" class="btn btn-secondary">Zurück</button>
+            </div>
         </div>
 
-        <div id="planner_routeSelect" hidden>
-            <div id="planner_routeSelect_name"></div>
-            <div id="planner_routeSelect_accordition" class="accordition">
-                <div class="accordion-item" id="planner_routeSelect_accordition_%route">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            %route
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            Start: %start<br>
-                            Ziel: %destination<br>
-                            Startzeit: %starttime<br>
-                            Endzeit: %endtime<br>
-                            Fahrzeuge: %vehicles<br>
-                            Wochentage: %daysofweek<br>
-                            <br>
-                            <select id="planner_routeSelect_accordition_%route_user"></select>
-                        </div>
-                    </div>
-                </div>
+        <div id="planner_right">
+            <div id="planner_userSelect">
+                <select id="planner_userSelect_select"></select>
+                <br><br><br>
+                <button id="planner_userSelect_button" type="button" class="btn btn-primary">Öffnen</button>
             </div>
-            <button id="planner_routeSelect_backButton" type="button" class="btn btn-secondary">Zurück</button>
+
+            <div id="planner_userRoutes" hidden>
+                <div id="planner_userRoutes_name"></div>
+                <div id="planner_userRoutes_accordition" class="accordition"></div>
+                <button id="planner_userRoutes_backButton" type="button" class="btn btn-secondary">Zurück</button>
+            </div>
         </div>
     </div>
 

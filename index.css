@@ -199,10 +199,18 @@ h1 {
     top: calc(50% - 100px);
 }
 
-#planner_mapSelect {
+#planner {
+    width: 1280px;
+    overflow: hidden;
+}
+
+#planner_left {
+    width: 640px;
+    float:left;
     text-align: center;
 }
 
-#planner_routeSelect {
+#planner_right {
+    overflow: hidden;
     text-align: center;
 }
