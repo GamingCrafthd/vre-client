@@ -57,7 +57,7 @@ function openMap(map) {
             const endTime = api.map(`${map}/${index}/endTime`).res
             const vehicles = api.map(`${map}/${index}/vehicles`).res
 
-            let daysOfWeek = daysOfWeekRaw.toString().replace("1", "Mo ").replace("2", "Di ").replace("3", "Mi ").replace("4", "Do ").replace("5", "Fr ").replace("6", "Sa ").replace("7", "So ")
+            const daysOfWeek = daysOfWeekRaw.toString().replace("1", "Mo ").replace("2", "Di ").replace("3", "Mi ").replace("4", "Do ").replace("5", "Fr ").replace("6", "Sa ").replace("7", "So ")
 
             const assignee = api.map(`${map}/${index}/assignedUser`).res
 
