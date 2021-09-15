@@ -77,7 +77,7 @@ function openMap(map) {
                 document.getElementById(`planner_routeSelect_accordition_${route}_misc`).innerHTML = "frei"
 
                 document.getElementById(`planner_routeSelect_accordition_${route}_assign`).addEventListener("click", () => {
-                    addRoute(`${map}::${route}::${document.getElementById("planner_dayOfWeek").value}`, map)
+                    addRoute(`${map}::${route}::${document.getElementById("planner_dayOfWeek").value}`, document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
                     openMap(map)
                     openUser(document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
                 })
@@ -101,7 +101,7 @@ function openUser(user) {
             const map = routeRaw.split("::")[0]
             const route = routeRaw.split("::")[1]
 
-            const index = JSON.parse(api.map("maps").res).indexOf(map)
+            const index = JSON.parse(api.map(`${map}/routes`).res).indexOf(route)
 
             const firstStop = api.map(`${map}/${index}/firstStop`).res
             const lastStop = api.map(`${map}/${index}/lastStop`).res
@@ -109,13 +109,13 @@ function openUser(user) {
             const endTime = api.map(`${map}/${index}/endTime`).res
             const vehicles = api.map(`${map}/${index}/vehicles`).res
 
-            let dayOfWeek = dayOfWeekRaw.toString().replace("1", "Mo ").replace("2", "Di ").replace("3", "Mi ").replace("4", "Do ").replace("5", "Fr ").replace("6", "Sa ").replace("7", "So ")
+            const dayOfWeek = dayOfWeekRaw.toString().replace("1", "Mo ").replace("2", "Di ").replace("3", "Mi ").replace("4", "Do ").replace("5", "Fr ").replace("6", "Sa ").replace("7", "So ")
 
             document.getElementById("planner_userRoutes_accordition").innerHTML += routeTemplate.replaceAll("%route", route).replaceAll("%firststop", firstStop).replaceAll("%destination", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles).replaceAll("%daysofweek", dayOfWeek).replaceAll("%index", index).replaceAll("%section", "userRoutes")
 
             document.getElementById(`planner_userRoutes_accordition_${route}_assign`).hidden = true
             document.getElementById(`planner_userRoutes_accordition_${route}_remove`).addEventListener("click", () => {
-                deleteRoute(routeRaw, map)
+                deleteRoute(routeRaw, user)
                 openUser(user)
                 openMap(map)
             })
@@ -123,15 +123,15 @@ function openUser(user) {
     })
 }
 
-function deleteRoute(route, map) {
-    let routes = api.map(`${map}/routes`).res
-    routes = routes.replace(`route${routes.includes(route + ",") ? "," : ""}`)
-    api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes}`)
+function deleteRoute(route, user) {
+    let routes = api.user(`${user}/routes`).res
+    routes = routes.replace(`${route}${routes.includes(route + ",") ? "," : ""}`, "")
+    api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes === "" ? "NONE" : routes}`)
 }
 
-function addRoute(route, map) {
-    let routes = api.map(`${map}/routes`).res
-    routes += `,${route}`
+function addRoute(route, user) {
+    let routes = api.user(`${user}/routes`).res
+    routes += `${routes === "" ? "" : ","}${route}`
     api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes}`)
 }
 
