@@ -1,8 +1,13 @@
 const routeTemplate = '<div class="accordion-item" id="planner_%section_accordition_%route"><h2 class="accordion-header" id="heading%section%index"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse%section%index" aria-expanded="false" aria-controls="collapse%section%index">%route</button></h2><div id="collapse%section%index" class="accordion-collapse collapse" aria-labelledby="heading%section%index" data-bs-parent="#accordionExample"><div class="accordion-body">Start: %firststop<br>Ziel: %destination<br>Startzeit: %starttime<br>Endzeit: %endtime<br>Fahrzeuge: %vehicles<br>Wochentage: %daysofweek<br><br><button class="btn btn-primary" type="button" id="planner_%section_accordition_%route_assign">Fahrer zuweisen</button><button class="btn btn-danger" type="button" id="planner_%section_accordition_%route_remove">Zuweisung löschen</button><div id="planner_%section_accordition_%route_misc"></div></div></div></div>'
 
-document.getElementById("planner_dayOfWeek").addEventListener("click", () => {
-    resetRight()
-    resetLeft()
+document.getElementById("planner_dayOfWeek").addEventListener("change", () => {
+    if (document.getElementById("planner_mapSelect").hidden) {
+        openMap(document.getElementById("planner_routeSelect_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+    }
+
+    if (document.getElementById("planner_userSelect").hidden) {
+        openUser(document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+    }
 })
 
 document.getElementById("planner_mapSelect_button").addEventListener("click", () => openMap(document.getElementById("planner_mapsSelect_select").value))
@@ -70,6 +75,12 @@ function openMap(map) {
                 document.getElementById(`planner_routeSelect_accordition_${route}_misc`).innerHTML = `Zugewiesen an ${assignee}`
             } else {
                 document.getElementById(`planner_routeSelect_accordition_${route}_misc`).innerHTML = "frei"
+
+                document.getElementById(`planner_routeSelect_accordition_${route}_assign`).addEventListener("click", () => {
+                    addRoute(`${map}::${route}::${document.getElementById("planner_dayOfWeek").value}`, map)
+                    openMap(map)
+                    openUser(document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+                })
             }
         }
     })
@@ -101,9 +112,27 @@ function openUser(user) {
             let dayOfWeek = dayOfWeekRaw.toString().replace("1", "Mo ").replace("2", "Di ").replace("3", "Mi ").replace("4", "Do ").replace("5", "Fr ").replace("6", "Sa ").replace("7", "So ")
 
             document.getElementById("planner_userRoutes_accordition").innerHTML += routeTemplate.replaceAll("%route", route).replaceAll("%firststop", firstStop).replaceAll("%destination", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles).replaceAll("%daysofweek", dayOfWeek).replaceAll("%index", index).replaceAll("%section", "userRoutes")
+
             document.getElementById(`planner_userRoutes_accordition_${route}_assign`).hidden = true
+            document.getElementById(`planner_userRoutes_accordition_${route}_remove`).addEventListener("click", () => {
+                deleteRoute(routeRaw, map)
+                openUser(user)
+                openMap(map)
+            })
         }
     })
+}
+
+function deleteRoute(route, map) {
+    let routes = api.map(`${map}/routes`).res
+    routes = routes.replace(`route${routes.includes(route + ",") ? "," : ""}`)
+    api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes}`)
+}
+
+function addRoute(route, map) {
+    let routes = api.map(`${map}/routes`).res
+    routes += `,${route}`
+    api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes}`)
 }
 
 function resetLeft() {
