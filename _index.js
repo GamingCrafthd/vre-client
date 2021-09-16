@@ -59,15 +59,10 @@ const viewports = [{
         viewport: "vehicles",
         onopen: () => {
             updateVehicles()
-
             doc.getById("btn_confirm").addEventListener("click", () => {
-                doc.getById("vehicles2").innerHTML = "";
-
-                if (doc.getById("id_cb").checked) {
-                    updateVehiclesWithSearch(doc.getById("allowed_cb").checked, doc.getById("id_input").value)
-                } else {
-                    updateVehiclesByOwnedOnly(doc.getById("allowed_cb").checked)
-                }
+                doc.getById("vehicles2").innerHTML = ""
+                if (doc.getById("id_cb").checked) updateVehiclesWithSearch(doc.getById("allowed_cb").checked, doc.getById("id_input").value)
+                else updateVehiclesByOwnedOnly(doc.getById("allowed_cb").checked)
             })
         }
     },
@@ -121,7 +116,7 @@ Array.from(document.getElementsByClassName("navbtn")).forEach((x) => {
 });
 
 const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl)
 });
 
