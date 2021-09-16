@@ -1,8 +1,12 @@
+const { appendFile } = require("original-fs")
+
 const specTemplate = "<p class=\"spec\">%key: %value</p>"
 const vehicleTemplate = "<div id=\"%id\" class=\"vehicle\"><img src=\"vehicles/%img.png\" alt=\"\"><p class=\"type\">%id - %manufacturer %type</p>%specs</div>"
 
-const vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res);
+const vehicleList = JSON.parse(httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${localStorage.getItem("sessionId")}`).res)
 const allowedVehicles = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/types/${localStorage.getItem("sessionId")}`).res.split(",")
+
+let firstTime = true;
 
 const imageFiles = [{
     file: "B80D",
@@ -23,23 +27,26 @@ const imageFiles = [{
 
 async function updateVehicles() {
     doc.getById("vehicles2").hidden = true
-    doc.getById("vehicles2").innerHTML = ""
+    if (firstTime) doc.getById("vehicles2").innerHTML = ""
     vehicleList.forEach(vehicleId => {
-        createVehicle(vehicleId)
+        if (firstTime) createVehicle(vehicleId)
+        if (!firstTime) document.getElementById(vehicleId).hidden = false;
     })
     doc.getById("vehicles2").hidden = false
+    firstTime = false;
 }
 
 async function updateVehiclesByOwnedOnly(ownedOnly) {
     doc.getById("vehicles2").hidden = true
     vehicleList.forEach(vehicleId => {
+        document.getElementById(vehicleId).hidden = true
         if (ownedOnly) {
             const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
             allowedVehicles.forEach(vehicle => {
-                if (vehicle == type) createVehicle(vehicleId)
+                if (vehicle == type) document.getElementById(vehicleId).hidden = false
             })
         } else {
-            createVehicle(vehicleId)
+            document.getElementById(vehicleId).hidden = false
         }
     })
     doc.getById("vehicles2").hidden = false
@@ -54,14 +61,15 @@ async function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
 
 
     vehicleList.forEach(vehicleId => {
+        document.getElementById(vehicleId).hidden = true
         if (("" + vehicleId).match(new RegExp(searchedVehicleId, 'g'))) {
             if (ownedOnly) {
                 const type = httpGet(`http://${localStorage.getItem("ipv4")}/api/vehicles/${vehicleId}/type/${localStorage.getItem("sessionId")}`).res
                 allowedVehicles.forEach(vehicle => {
-                    if (vehicle === type) createVehicle(vehicleId)
+                    if (vehicle === type) document.getElementById(vehicleId).hidden = false
                 })
             } else {
-                createVehicle(vehicleId)
+                document.getElementById(vehicleId).hidden = false
             }
         }
     })
@@ -76,10 +84,10 @@ function createVehicle(vehicleId) {
     let specsText = ""
 
     if (specs === "NONE") {
-        specsText = "";
+        specsText = ""
     } else {
-        specs.split(";").forEach(spec => {
-            specsText += specTemplate.replace("%key", spec.split("=")[0]).replace("%value", spec.split("=")[1])
+        specs.split("=").forEach(spec => {
+            specsText += specTemplate.replace("%key", spec.split("=")[0]).replace("%value", spec.split("=")[1]).replace("undefined", "kein(e)")
         })
     }
 

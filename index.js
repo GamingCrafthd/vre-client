@@ -61,8 +61,8 @@ app.whenReady().then(() => {
     }, false ? 10000 : 1)
     window.on('close', () => {
         console.log("Good-bye!")
-        const w = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
-        //setTimeout(app.quit, 5000)
+        openWindow("goodbye.html", "VRE-Client", false, 480, 320)
+            //setTimeout(app.quit, 5000)
         setTimeout(app.quit, false ? 5000 : 1)
     })
     ipcMain.on('resize', (event, arg) => {
