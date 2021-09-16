@@ -74,7 +74,7 @@ const viewports = [{
     {
         viewport: "routes",
         onopen: () => {
-            console.log("kek")
+            loadRoutes()
         }
     },
     {
@@ -92,7 +92,7 @@ const viewports = [{
     {
         viewport: "planner",
         onopen: () => {
-            load()
+            loadPlanner()
         }
     },
     {

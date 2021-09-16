@@ -16,7 +16,7 @@ document.getElementById("planner_userSelect_button").addEventListener("click", (
 document.getElementById("planner_routeSelect_backButton").addEventListener("click", () => resetLeft())
 document.getElementById("planner_userRoutes_backButton").addEventListener("click", () => resetRight())
 
-function load() {
+function loadPlanner() {
     document.getElementById("planner_userSelect").hidden = false
     document.getElementById("planner_mapSelect").hidden = false
     document.getElementById("planner_userRoutes").hidden = true
@@ -129,13 +129,9 @@ function openUser(user) {
 
 function deleteRoute(route, user) {
     let routes = api.user(`${user}/routes`).res
-    console.log("1 " + routes)
     routes = routes.replace(route, "").replace(",,", ",")
-    console.log("2 " + routes + " " + route)
     if (routes.endsWith(",")) routes = routes.slice(0, routes.length - 1)
-    console.log("3 " + routes)
     if (routes.startsWith(",")) routes = routes.slice(1)
-    console.log("4 " + routes)
     api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes === "" ? "NONE" : routes}`)
 }
 
