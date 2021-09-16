@@ -1,10 +1,11 @@
-const routeTemplate = '<div class="accordion-item"><h2 class="accordion-header" id="heading%index"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse%index" aria-expanded="true" aria-controls="collapse%index">%map: %route</button></h2><div id="collapse%index" class="accordion-collapse collapse show" aria-labelledby="heading%index" data-bs-parent="#routes_accordition"><div class="accordion-body">Start: %firststop<br>Ziel: %laststop<br>Startzeit: %starttime<br>Endzeit: %endtime<br>Fahrzeuge: %vehicles<br><br><br><button type="button" class="btn btn-success" id="routes_accordition_%index_button">Fahrt abschließen</button></div></div></div>'
+const routeTemplate1 = '<div class="accordion-item"><h2 class="accordion-header" id="heading%index"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse%index" aria-expanded="true" aria-controls="collapse%index">%map: %route</button></h2><div id="collapse%index" class="accordion-collapse collapse show" aria-labelledby="heading%index" data-bs-parent="#routes_accordition"><div class="accordion-body">Start: %firststop<br>Ziel: %laststop<br>Startzeit: %starttime<br>Endzeit: %endtime<br>Fahrzeuge: %vehicles<br><br><br><button type="button" class="btn btn-success" id="routes_accordition_%index_button">Fahrt abschließen</button></div></div></div>'
+document.getElementById("routes_dayOfWeek").value = new Date().getDay()
+document.getElementById("routes_dayOfWeek").addEventListener("change", () => loadRoutes())
 
 function loadRoutes() {
     const routes = api.user(`${localStorage.getItem("username")}/routes`).res.split(",")
-    const currentDay = new Date().getDay()
+    const selectedDay = document.getElementById("routes_dayOfWeek").value
 
-    document.getElementById("routes_dayOfWeek").value = currentDay
     document.getElementById("routes_accordition").innerHTML = ""
 
     routes.forEach(routeRaw => {
@@ -13,9 +14,13 @@ function loadRoutes() {
         const map = data[0]
         const route = data[1]
         const dayOfWeek = parseInt(data[2])
+        const mapRoutes = api.map(`${map}/routes`).res
 
-        if (dayOfWeek === currentDay) {
-            const mapRoutes = api.map(`${map}/routes`).res
+        console.log("compare " + dayOfWeek + "===" + selectedDay)
+
+        if (dayOfWeek == selectedDay) {
+            console.log("test passed")
+
             const index = mapRoutes.indexOf(route)
 
             const firstStop = api.map(`${map}/${index}/firstStop`).res
@@ -24,7 +29,7 @@ function loadRoutes() {
             const endTime = api.map(`${map}/${index}/endTime`).res
             const vehicles = api.map(`${map}/${index}/vehicles`).res
 
-            document.getElementById("routes_accordition").innerHTML += routeTemplate.replaceAll("%index", index).replaceAll("%route", route).replaceAll("%map", map).replaceAll("%firststop", firstStop).replaceAll("%laststop", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles)
+            document.getElementById("routes_accordition").innerHTML += routeTemplate1.replaceAll("%index", index).replaceAll("%route", route).replaceAll("%map", map).replaceAll("%firststop", firstStop).replaceAll("%laststop", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles)
             document.getElementById(`routes_accordition_${index}_button`).addEventListener("click", () => {
                 deleteRoute(route, localStorage.getItem("username"))
                 loadRoutes()
