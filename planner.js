@@ -77,9 +77,13 @@ function openMap(map) {
                 document.getElementById(`planner_routeSelect_accordition_${route}_misc`).innerHTML = "frei"
 
                 document.getElementById(`planner_routeSelect_accordition_${route}_assign`).addEventListener("click", () => {
-                    addRoute(`${map}::${route}::${document.getElementById("planner_dayOfWeek").value}`, document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
-                    openMap(map)
-                    openUser(document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+                    if (document.getElementById("planner_userRoutes").hidden) {
+                        alert("Bitte wähle einen Nutzer aus!")
+                    } else {
+                        addRoute(`${map}::${route}::${document.getElementById("planner_dayOfWeek").value}`, document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+                        openMap(map)
+                        openUser(document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", ""))
+                    }
                 })
             }
         }
@@ -125,9 +129,13 @@ function openUser(user) {
 
 function deleteRoute(route, user) {
     let routes = api.user(`${user}/routes`).res
-    routes.replace(route, "").replace(",,", ",")
+    console.log("1 " + routes)
+    routes = routes.replace(route, "").replace(",,", ",")
+    console.log("2 " + routes + " " + route)
     if (routes.endsWith(",")) routes = routes.slice(0, routes.length - 1)
+    console.log("3 " + routes)
     if (routes.startsWith(",")) routes = routes.slice(1)
+    console.log("4 " + routes)
     api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes === "" ? "NONE" : routes}`)
 }
 
