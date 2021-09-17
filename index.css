@@ -218,3 +218,8 @@ h1 {
 #coming_soon {
     text-align: center;
 }
+
+#routes_empty {
+    text-align: center;
+    font-size: xxx-large;
+}

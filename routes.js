@@ -7,6 +7,7 @@ function loadRoutes() {
     const selectedDay = document.getElementById("routes_dayOfWeek").value
 
     document.getElementById("routes_accordition").innerHTML = ""
+    document.getElementById("routes_empty").innerHTML = ""
 
     routes.forEach(routeRaw => {
         const data = routeRaw.split("::")
@@ -16,11 +17,7 @@ function loadRoutes() {
         const dayOfWeek = parseInt(data[2])
         const mapRoutes = api.map(`${map}/routes`).res
 
-        console.log("compare " + dayOfWeek + "===" + selectedDay)
-
         if (dayOfWeek == selectedDay) {
-            console.log("test passed")
-
             const index = mapRoutes.indexOf(route)
 
             const firstStop = api.map(`${map}/${index}/firstStop`).res
@@ -31,11 +28,15 @@ function loadRoutes() {
 
             document.getElementById("routes_accordition").innerHTML += routeTemplate1.replaceAll("%index", index).replaceAll("%route", route).replaceAll("%map", map).replaceAll("%firststop", firstStop).replaceAll("%laststop", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles)
             document.getElementById(`routes_accordition_${index}_button`).addEventListener("click", () => {
-                deleteRoute(route, localStorage.getItem("username"))
+                deleteRoute(routeRaw, localStorage.getItem("username"))
                 loadRoutes()
             })
         }
     })
+
+    if (document.getElementById("routes_accordition").innerHTML === "") {
+        document.getElementById("routes_empty").innerHTML = "Keine Fahrten"
+    }
 }
 
 function deleteRoute(route, user) {
@@ -43,5 +44,5 @@ function deleteRoute(route, user) {
     routes = routes.replace(route, "").replace(",,", ",")
     if (routes.endsWith(",")) routes = routes.slice(0, routes.length - 1)
     if (routes.startsWith(",")) routes = routes.slice(1)
-    api.user(`${document.getElementById("planner_userRoutes_name").innerHTML.replace("<h1>", "").replace("</h1>", "")}/set/routes/${routes === "" ? "NONE" : routes}`)
+    api.user(`${localStorage.getItem("username")}/set/routes/${routes === "" ? "NONE" : routes}`)
 }
