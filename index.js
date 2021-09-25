@@ -39,6 +39,12 @@ function handleSquirrelEvent() {
 }
 
 app.whenReady().then(() => {
+    let not_admin = true,
+        admin = false;
+
+    // Get admin privilges
+    if (not_admin) admin = true;
+
     const loading_screen = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
     const window = new BrowserWindow({
         title: "VRE Client",
