@@ -10,6 +10,8 @@ const doc = {
 
 const http = {
     get: uri => {
+        console.log("Global API » Connecting to " + uri)
+
         const xmlHttp = new XMLHttpRequest();
         xmlHttp.open("GET", uri, false)
         xmlHttp.send(null)

@@ -15,10 +15,10 @@ function loadRoutes() {
         const map = data[0]
         const route = data[1]
         const dayOfWeek = parseInt(data[2])
-        const mapRoutes = api.map(`${map}/routes`).res
+        const mapRoutes = JSON.parse(api.map(`${map}/routes`).res)
 
         if (dayOfWeek == selectedDay) {
-            const index = mapRoutes.indexOf(route)
+            let index = mapRoutes.indexOf(route);
 
             const firstStop = api.map(`${map}/${index}/firstStop`).res
             const lastStop = api.map(`${map}/${index}/lastStop`).res
