@@ -12,7 +12,6 @@
     "license": "MIT",
     "dependencies": {
         "electron-squirrel-startup": "^1.0.0",
-        "material-components-web": "^13.0.0",
         "update-electron-app": "^2.0.1"
     },
     "devDependencies": {
@@ -28,8 +27,7 @@
             "packagerConfig": {
                 "icon": "icon.png"
             },
-            "makers": [
-                {
+            "makers": [{
                     "name": "@electron-forge/maker-squirrel",
                     "config": {
                         "name": "VRE-Client"
