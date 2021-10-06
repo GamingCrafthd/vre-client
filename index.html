@@ -6,30 +6,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VRE Client</title>
-    <!--<link rel="stylesheet" href="index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">-->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <style>
+        *:focus {
+            outline: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="navbar">
-        <img src="favicon.png" alt="VRE" class="icon horizontal-seperator-right">
-        <button data-viewport="home" class="active navbtn">Home</button>
-        <button data-viewport="vehicles" class="navbtn">Fuhrpark</button>
-        <button data-viewport="routes" class="navbtn">Meine Fahrten</button>
-        <button data-viewport="lsf" class="navbtn">Leitstellenfahrt</button>
-        <button data-viewport="rules" class="navbtn">Regelwerk & Weisungen</button>
-        <button data-viewport="planner" class="navbtn">Fahrplanung</button>
-        <button data-viewport="manage" class="navbtn">Verwaltung</button>
-        <button data-viewport="settings" class="navbtn">Einstellungen</button>
-        <div id="udiv">
-            <p id="user-text-2" class="bold utext">Angemeldet als %user</p>
-            <p id="user-text" class="utext">%role</p>
+
+    <div class="columns is-2 m-1">
+        <div class="column">
+            <button data-viewport="home" class="active navbtn button is-fullwidth is-inverted is-dark">Home</button>
+        </div>
+        <div class="column">
+            <button data-viewport="vehicles" class="navbtn button is-fullwidth is-inverted is-dark">Fuhrpark</button>
+        </div>
+        <div class="column">
+            <button data-viewport="routes" class="navbtn button is-fullwidth is-inverted is-dark">Meine Fahrten</button>
+        </div>
+        <div class="column">
+            <button data-viewport="lsf" class="navbtn button is-fullwidth is-inverted is-dark">Leitstellenfahrt</button>
+        </div>
+        <div class="column">
+            <button data-viewport="rules" class="navbtn button is-fullwidth is-inverted is-dark">Regelwerk & Weisungen</button>
+        </div>
+        <div class="column">
+            <button data-viewport="planner" class="navbtn button is-fullwidth is-inverted is-dark">Fahrplanung</button>
+        </div>
+        <div class="column">
+            <button data-viewport="manage" class="navbtn button is-fullwidth is-inverted is-dark">Verwaltung</button>
+        </div>
+        <div class="column">
+            <button id="user-text-2" data-viewport="settings" class="navbtn button is-fullwidth is-inverted is-dark">%user</button>
         </div>
     </div>
 
     <div id="home" class="viewport">
-        <h1 id="welcome">Willkommen!</h1>
+        <h1 id="welcome" class="title">Willkommen!</h1>
     </div>
 
     <div id="vehicles" class="viewport" hidden>

@@ -8,45 +8,6 @@ console.log(
 )
 
 doc.getById("user-text-2").innerText = doc.getById("user-text-2").innerText.replace("%user", api.user(`${localStorage.getItem("username")}/display`).res)
-const req = httpGet(`http://${localStorage.getItem("ipv4")}/api/user/${localStorage.getItem("username")}/role/${localStorage.getItem("sessionId")}`);
-if (req.status !== 200) req.res = -1;
-
-let role = "";
-switch (req.res) {
-    case "-1":
-        role = "Interner Fehler"
-        break
-
-    case "0":
-        role = "Fahrschüler"
-        break
-
-    case "1":
-        role = "Fahrer"
-        break
-
-    case "2":
-        role = "Fuhrparkbeauftragter"
-        break
-
-    case "3":
-        role = "Fahrlehrer"
-        break
-
-    case "4":
-        role = "Disponent"
-        break
-
-    case "5":
-        role = "Administrator"
-        break
-
-    case "6":
-        role = "Entwickler"
-        break
-}
-
-doc.getById("user-text").innerText = doc.getById("user-text").innerText.replace("%role", role)
 
 const viewports = [{
         viewport: "home",
