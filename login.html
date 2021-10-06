@@ -9,23 +9,52 @@
     <link rel="icon" sizes="192x192" href="favicon.png">
     <!--<link rel="stylesheet" href="login.css">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <style>
         body {
             margin: 0;
             padding: 0;
             overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: hidden;
         }
     </style>
 </head>
 
 <body>
-    <!--<img src="favicon.png" alt="VRE">-->
 
-    <form id="login">
-        <input class="input m-3" id="ip" placeholder="Serveradresse" value="195.128.103.227:5000" required width="90vw">
-        <input class="input m-3" id="username" placeholder="Personalnummer" required>
-        <input class="input m-3" id="password" placeholder="Passwort" type="password" required>
-        <input class="button is-primary is-outlined m-3" id="submit" type="submit" value="ANMELDEN">
+    <form id="login" class="m-5">
+
+        <h1 class="title is-2">Login</h1>
+
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" id="ip" placeholder="Serveradresse" value="195.128.103.227:5000" required>
+                <span class="icon is-small is-left">
+                <em class="bi bi-hdd-network-fill"></em>
+              </span>
+            </p>
+        </div>
+
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" id="username" placeholder="Personalnummer" required>
+                <span class="icon is-small is-left">
+                <em class="bi bi-person-badge-fill"></em>
+              </span>
+            </p>
+        </div>
+
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" id="password" placeholder="Passwort" type="password" required>
+                <span class="icon is-small is-left">
+                <em class="bi bi-lock-fill"></em>
+              </span>
+            </p>
+        </div>
+
+        <input class="button is-primary is-outlined is-fullwidth" id="submit" type="submit" value="ANMELDEN">
     </form>
 
 

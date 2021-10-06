@@ -39,16 +39,9 @@ function handleSquirrelEvent() {
 }
 
 app.whenReady().then(() => {
-    let not_admin = true,
-        admin = false;
-
-    // Get admin privilges
-    if (not_admin) admin = true;
-
-    const loading_screen = openWindow("goodbye.html", "VRE-Client", false, 480, 320)
     const window = new BrowserWindow({
         title: "VRE Client",
-        width: 300,
+        width: 400,
         height: 400,
         autoHideMenuBar: true,
         icon: "icon.png",
@@ -61,15 +54,10 @@ app.whenReady().then(() => {
     })
     window.menuBarVisible = false
     window.loadFile("login.html")
-    setTimeout(() => {
-        loading_screen.hide()
-        window.show()
-    }, false ? 10000 : 1)
+    window.show()
     window.on('close', () => {
         console.log("Good-bye!")
-        openWindow("goodbye.html", "VRE-Client", false, 480, 320)
-            //setTimeout(app.quit, 5000)
-        setTimeout(app.quit, false ? 5000 : 1)
+        app.quit()
     })
     ipcMain.on('resize', (event, arg) => {
         window.setSize(arg.width, arg.height)
