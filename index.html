@@ -19,6 +19,10 @@
             margin-top: 35vh;
             text-align: center;
         }
+        
+        #id_input {
+            width: 90%;
+        }
     </style>
 </head>
 
@@ -56,9 +60,28 @@
     </div>
 
     <div id="vehicles" class="viewport" hidden>
-        <h1>Fuhrpark</h1>
+        <!--<h1>Fuhrpark</h1>
         <input type="checkbox" id="allowed_cb" class="form-check-input"><label class="form-check-label" for="allowed_cb">Nur Fz. mit Fahrerlaubnis</label> | <input id="id_input" placeholder="Nach Fznr suchen"><input type="checkbox" id="id_cb" class="form-check-input">        |
-        <button id="btn_confirm" class="btn btn-primary">Filter übernehmen</button>
+        <button id="btn_confirm" class="btn btn-primary">Filter übernehmen</button>-->
+
+        <div class="columns is-3 m-2">
+            <div class="column">
+                <input class="input is-small" type="text" id="id_input" placeholder="Nach Fznr. suchen">
+                <input type="checkbox" id="id_cb" class="form-check-input">
+            </div>
+
+            <div class="column">
+                <label class="checkbox">
+                    <input type="checkbox" id="allowed_cb" class="form-check-input">
+                    Nur Fz. mit Fahrerlaubnis
+                </label>
+            </div>
+
+            <div class="column">
+                <button id="btn_confirm" class="button is-primary is-small is-fullwidth">Filter übernehmen</button>
+            </div>
+        </div>
+
         <div id="vehicles2" hidden></div>
     </div>
 
