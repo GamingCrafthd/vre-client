@@ -1,6 +1,6 @@
 const routeTemplate = '<div class="accordion-item" id="planner_%section_accordition_%route"><h2 class="accordion-header" id="heading%section%index"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse%section%index" aria-expanded="false" aria-controls="collapse%section%index">%display</button></h2><div id="collapse%section%index" class="accordion-collapse collapse" aria-labelledby="heading%section%index" data-bs-parent="#accordionExample"><div class="accordion-body">Start: %firststop<br>Ziel: %destination<br>Startzeit: %starttime<br>Endzeit: %endtime<br>Fahrzeuge: %vehicles<br>Wochentage: %daysofweek<br><br><button class="btn btn-primary" type="button" id="planner_%section_accordition_%route_assign">Fahrer zuweisen</button><button class="btn btn-danger" type="button" id="planner_%section_accordition_%route_remove">Zuweisung löschen</button><div id="planner_%section_accordition_%route_misc"></div></div></div></div>'
 
-document.getElementById("planner_dayOfWeek").value = new Date().getDay()
+document.getElementById("planner_dayOfWeek").value = new Date().getDay() === 0 ? 7 : new Date().getDay()
 
 document.getElementById("planner_dayOfWeek").addEventListener("change", () => {
     if (document.getElementById("planner_mapSelect").hidden) {
