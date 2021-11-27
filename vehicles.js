@@ -86,9 +86,9 @@ function createVehicle(vehicleId) {
     if (specs === "NONE") {
         specsText = ""
     } else {
-        specs.split("=").forEach(spec => {
+        specs.split(";").forEach(spec =>
             specsText += specTemplate.replace("%key", spec.split("=")[0]).replace("%value", spec.split("=")[1]).replace("undefined", "kein(e)")
-        })
+        )
     }
 
     let image = "default"
