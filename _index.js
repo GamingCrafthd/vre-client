@@ -75,7 +75,7 @@ const viewports = [{
     {
         viewport: "lsf",
         onopen: () => {
-            console.log("kek")
+
         }
     },
     {
@@ -122,7 +122,7 @@ const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
 
 
 function httpGet(url) {
-    const xmlHttp = new XMLHttpRequest();
+    const xmlHttp = new XMLHttpRequest()
     xmlHttp.open("GET", url, false)
     xmlHttp.send(null)
     return { res: xmlHttp.responseText, status: xmlHttp.status }
