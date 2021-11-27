@@ -91,8 +91,6 @@ function createVehicle(vehicleId) {
         )
     }
 
-
-
     let image = "default"
     imageFiles.forEach(img => {
         if (img.types.includes(type)) image = img.file
