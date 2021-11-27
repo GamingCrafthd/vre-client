@@ -120,6 +120,16 @@ function openUser(user) {
             document.getElementById("planner_userRoutes_accordition").innerHTML += routeTemplate.replaceAll("%display", `${map}: ${route}`).replaceAll("%route", `${route}`).replaceAll("%firststop", firstStop).replaceAll("%destination", lastStop).replaceAll("%starttime", startTime).replaceAll("%endtime", endTime).replaceAll("%vehicles", vehicles).replaceAll("%daysofweek", dayOfWeek).replaceAll("%index", index).replaceAll("%section", "userRoutes")
 
             document.getElementById(`planner_userRoutes_accordition_${route}_assign`).hidden = true
+        }
+    })
+
+    routes.forEach(routeRaw => {
+        const dayOfWeekRaw = routeRaw.split("::")[2]
+
+        if (dayOfWeekRaw === document.getElementById("planner_dayOfWeek").value) {
+            const map = routeRaw.split("::")[0]
+            const route = routeRaw.split("::")[1]
+
             document.getElementById(`planner_userRoutes_accordition_${route}_remove`).addEventListener("click", () => {
                 deleteRoute(routeRaw, user)
                 openUser(user)
