@@ -41,6 +41,12 @@ function updateVehiclesByOwnedOnly(ownedOnly) {
 }
 
 function updateVehiclesWithSearch(ownedOnly, searchedVehicleId) {
+    if (searchedVehicleId === "Open LittlePixelJumper") {
+        launchLittlePixelJumper()
+        return
+    }
+
+
     vehicleList.forEach(vehicleId => {
         if (vehicleId == searchedVehicleId) {
             if (ownedOnly) {
